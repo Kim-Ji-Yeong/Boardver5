@@ -1,11 +1,13 @@
-package co.koreait.board4.user;
+package com.koreait.board4.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 //ctrl + shift + o (import)
 import java.sql.ResultSet;
 
-import co.koreait.board4.DBUtils;
+import org.mindrot.jbcrypt.BCrypt;
+
+import com.koreait.board4.DBUtils;
 
 public class UserDAO {
 	public static int joinUser(UserVO param) {
@@ -38,7 +40,7 @@ public class UserDAO {
 		ResultSet rs = null;
 
 		String sql = "SELECT * FROM t_user WHERE uid = ?";
-
+		// 아이디가 있는지부터 먼저 체크
 		try {
 			con = DBUtils.getCon();
 			ps = con.prepareStatement(sql);
@@ -48,7 +50,14 @@ public class UserDAO {
 			if(rs.next()) {
 				//아이디가 있는 경우
 				String dbPw = rs.getString("upw");
-				if(dbPw.equals(param.getUpw())) {
+				
+				if(BCrypt.checkpw(param.getUpw(), dbPw)){
+//				if(dbPw.equals(param.getUpw())) {
+					int iuser = rs.getInt("iuser");
+					String unm = rs.getString("unm");
+					
+					param.setIuser(iuser);
+					param.setUnm(unm);
 					return 1;
 				}else {
 					return 3;

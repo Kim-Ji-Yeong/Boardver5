@@ -1,4 +1,4 @@
-package co.koreait.board4.user;
+package com.koreait.board4.user;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import co.koreait.board4.MyUtils;
+import org.mindrot.jbcrypt.BCrypt;
+
+import com.koreait.board4.MyUtils;
 
 
 @WebServlet("/user/join")
@@ -29,10 +31,14 @@ public class JoinServ extends HttpServlet {
 		//int intGender = MyUtils.parseStringToInt(gender);
 		int gender = MyUtils.getParamInt("gender", request);
 		
+		System.out.println("unm : " + unm);
+		String hashedUpw = BCrypt.hashpw(upw, BCrypt.gensalt());
+		System.out.println("hashedUpw : " + hashedUpw);
+		
 		UserVO user = new UserVO();
 		user.setUid(uid);
 		user.setUnm(unm);
-		user.setUpw(upw);
+		user.setUpw(hashedUpw);
 		user.setGender(gender);
 		
 		UserDAO.joinUser(user);

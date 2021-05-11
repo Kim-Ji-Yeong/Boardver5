@@ -1,4 +1,4 @@
-package co.koreait.board4.user;
+package com.koreait.board4.user;
 
 public class UserVO {
 	private int iuser;
