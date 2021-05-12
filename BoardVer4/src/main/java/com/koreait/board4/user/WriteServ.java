@@ -35,9 +35,13 @@ public class WriteServ extends HttpServlet {
 		String title = request.getParameter("title");
 		String ctnt = request.getParameter("ctnt");
 		
-		HttpSession hs = request.getSession();
-		UserVO loginUser = (UserVO)hs.getAttribute("loginSuccess");
-		int iuser = loginUser.getIuser();
+//		HttpSession hs = request.getSession();
+//		UserVO loginUser = (UserVO)hs.getAttribute("loginSuccess");
+//		int iuser = loginUser.getIuser();
+		
+		int iuser = MyUtils.getLoginUserPk(request);
+		
+		
 		
 		BoardVO vo = new BoardVO();
 			vo.setCtnt(ctnt);

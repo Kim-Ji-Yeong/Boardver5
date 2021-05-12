@@ -24,7 +24,8 @@
 					<th>작성일</th>
 				</tr>
 				<c:forEach items="${list}" var="item">
-					<tr>
+
+					<tr onclick="moveToDetail(${item.iboard})">
 						<td>${item.iboard}</td>
 						<td>${item.title}</td>
 						<td>${item.unm}</td>
@@ -34,5 +35,7 @@
 			</table>
 		</div>
 	</div>
+	<script>function moveToDetail(iboard) {
+		location.href = '/board/detail?iboard=' + iboard}</script>
 </body>
 </html>
