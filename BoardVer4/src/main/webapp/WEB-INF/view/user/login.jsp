@@ -39,7 +39,7 @@ if (errMsg == null) {
 			</form>
 		</div>
 		<div>
-			<a href="join">회원가입</a>
+			<a href="/user/join">회원가입</a> <!-- join -->
 		</div>
 	</div>
 </body>
